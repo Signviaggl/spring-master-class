@@ -21,14 +21,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
+		<version>3.2.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>21</java.version>
+        <jakarta.annotation.api.version>2.1.1</jakarta.annotation.api.version>
+        <junit-jupiter.version>5.9.2</junit-jupiter.version>
 	</properties>
 
 	<dependencies>
@@ -59,17 +61,25 @@
 			<version>1</version>
 		</dependency>
 
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${jakarta.annotation.api.version}</version>
+        </dependency>
+
 		<dependency>
-			<groupId>org.springframework</groupId>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <!-- Junit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -204,7 +214,7 @@ import org.springframework.stereotype.Service;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class BinarySearchImpl {
 	
-	private Logger logger = LoggerFactory.getLogger(this.getClass()); 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass()); 
 
 	@Autowired
 	@Qualifier("bubble")
@@ -277,7 +287,7 @@ public class QuickSortAlgorithm implements SortAlgorithm {
 package com.in28minutes.spring.basics.springin5steps.basic;
 
 public interface SortAlgorithm {
-	public int[] sort(int[] numbers);
+	int[] sort(int[] numbers);
 }
 ```
 ---
@@ -422,15 +432,11 @@ public class SpringIn5StepsBasicApplication {
 
 	public static void main(String[] args) {
 
-		try (AnnotationConfigApplicationContext applicationContext = 
-				new AnnotationConfigApplicationContext(
-				SpringIn5StepsBasicApplication.class)) {
+		try (var applicationContext = new AnnotationConfigApplicationContext(SpringIn5StepsBasicApplication.class)) {
 
-			BinarySearchImpl binarySearch = 
-					applicationContext.getBean(BinarySearchImpl.class);
+			var binarySearch = applicationContext.getBean(BinarySearchImpl.class);
 
-			BinarySearchImpl binarySearch1 = 
-					applicationContext.getBean(BinarySearchImpl.class);
+			var binarySearch1 = applicationContext.getBean(BinarySearchImpl.class);
 
 			System.out.println(binarySearch);
 			System.out.println(binarySearch1);
@@ -460,12 +466,11 @@ import com.in28minutes.spring.basics.springin5steps.cdi.SomeCdiBusiness;
 @ComponentScan
 public class SpringIn5StepsCdiApplication {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsCdiApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsCdiApplication.class);
 
 	public static void main(String[] args) {
-		try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
-				SpringIn5StepsCdiApplication.class)) {
-			SomeCdiBusiness business = applicationContext.getBean(SomeCdiBusiness.class);
+		try (var applicationContext = new AnnotationConfigApplicationContext(SpringIn5StepsCdiApplication.class)) {
+			var business = applicationContext.getBean(SomeCdiBusiness.class);
 
 			LOGGER.info("{} dao-{}", business, business.getSomeCDIDAO());
 		}
@@ -491,13 +496,12 @@ import com.in28minutes.spring.basics.componentscan.ComponentDAO;
 @ComponentScan("com.in28minutes.spring.basics.componentscan")
 public class SpringIn5StepsComponentScanApplication {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsComponentScanApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsComponentScanApplication.class);
 
 	public static void main(String[] args) {
 
-		try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
-				SpringIn5StepsComponentScanApplication.class)) {
-			ComponentDAO componentDAO = applicationContext.getBean(ComponentDAO.class);
+		try (var applicationContext = new AnnotationConfigApplicationContext(SpringIn5StepsComponentScanApplication.class)) {
+			var componentDAO = applicationContext.getBean(ComponentDAO.class);
 
 			LOGGER.info("{}", componentDAO);
 		}
@@ -526,10 +530,9 @@ public class SpringIn5StepsPropertiesApplication {
 
 	public static void main(String[] args) {
 
-		try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
-				SpringIn5StepsPropertiesApplication.class)) {
+		try (var applicationContext = new AnnotationConfigApplicationContext(SpringIn5StepsPropertiesApplication.class)) {
 
-			SomeExternalService service = applicationContext.getBean(SomeExternalService.class);
+			var service = applicationContext.getBean(SomeExternalService.class);
 			System.out.println(service.returnServiceURL());
 		}
 	}
@@ -554,16 +557,15 @@ import com.in28minutes.spring.basics.springin5steps.scope.PersonDAO;
 @ComponentScan
 public class SpringIn5StepsScopeApplication {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsScopeApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsScopeApplication.class);
 
 	public static void main(String[] args) {
 
-		try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
-				SpringIn5StepsScopeApplication.class)) {
+		try (var applicationContext = new AnnotationConfigApplicationContext(SpringIn5StepsScopeApplication.class)) {
 
-			PersonDAO personDao = applicationContext.getBean(PersonDAO.class);
+			var personDao = applicationContext.getBean(PersonDAO.class);
 
-			PersonDAO personDao2 = applicationContext.getBean(PersonDAO.class);
+			var personDao2 = applicationContext.getBean(PersonDAO.class);
 
 			LOGGER.info("{}", personDao);
 			LOGGER.info("{}", personDao.getJdbcConnection());
@@ -590,17 +592,16 @@ import com.in28minutes.spring.basics.springin5steps.xml.XmlPersonDAO;
 
 public class SpringIn5StepsXMLContextApplication {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsScopeApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsScopeApplication.class);
 
 	public static void main(String[] args) {
 
-		try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"applicationContext.xml")) {
+		try (var applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml")) {
 
 			LOGGER.info("Beans Loaded -> {}", (Object) applicationContext.getBeanDefinitionNames());
 			// [xmlJdbcConnection, xmlPersonDAO]
 
-			XmlPersonDAO personDao = applicationContext.getBean(XmlPersonDAO.class);
+			var personDao = applicationContext.getBean(XmlPersonDAO.class);
 
 			LOGGER.info("{} {}", personDao, personDao.getXmlJdbcConnection());
 		}
@@ -831,17 +832,19 @@ public class SomeCdiBusinessTest {
 ```java
 package com.in28minutes.spring.basics.springin5steps;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+// replaced @RunWith with @ExtendWith
+// replaced SpringRunner.class with SpringExtension.class
+@ExtendWith(SpringExtension.class)
 //@SpringBootTest
 public class SpringIn5StepsBasicApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
 }
 ```

@@ -1,15 +1,16 @@
 package com.in28minutes.spring.basics.springin5steps;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
-//@SpringBootTest
-public class SpringIn5StepsBasicApplicationTests {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(locations="/testContext.xml")
+class SpringIn5StepsBasicApplicationTests {
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 	}
 
 }

@@ -12,6 +12,12 @@ import com.in28minutes.spring.aop.springaop.business.Business2;
 
 //testing waters with the bitbucket to myBranch
 //my branch updated from the IDE
+//Editing directly into the repository (GitHUB)
+//this is now direct update into the IDE - this is modified again
+//Another direct update in the GITHUB - this is modified again
+// and the final modification from the repo
+//and now this is from the IDE
+
 @SpringBootApplication
 public class SpringAopApplication implements CommandLineRunner{
 	

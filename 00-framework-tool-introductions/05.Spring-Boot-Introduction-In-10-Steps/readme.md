@@ -1,46 +1,47 @@
-##  First 10 Steps in Spring Boot
+## Getting Started with Spring Boot
 
-- Step 1 : Introduction to Spring Boot - Goals and Important Features
-- Step 2 : Developing Spring Applications before Spring Boot
-- Step 3 : Using Spring Initializr to create a Spring Boot Application
-- Step 4 : Creating a Simple REST Controller
-- Step 5 : What is Spring Boot Auto Configuration?
-- Step 6 : Spring Boot vs Spring vs Spring MVC
-- Step 7 : Spring Boot Starter Projects - Starter Web and Starter JPA
-- Step 8 : Overview of different Spring Boot Starter Projects
-- Step 9 : Spring Boot Actuator
-- Step 10 : Spring Boot Developer Tools
-- Spring Boot - Conclusion
+- Step 01 - Getting Started with Spring Boot - Goals
+- Step 02 - Understanding the World Before Spring Boot - 10000 Feet Overview
+- Step 03 - Setting up New Spring Boot Project with Spring Initializr
+- Step 04 - Build a Hello World API with Spring Boot
+- Step 05 - Understanding the Goal of Spring Boot
+- Step 06 - Understanding Spring Boot Magic - Spring Boot Starter Projects
+- Step 07 - Understanding Spring Boot Magic - Auto Configuration
+- Step 08 - Build Faster with Spring Boot DevTools
+- Step 09 - Get Production Ready with Spring Boot - 1 - Profiles
+- Step 10 - Get Production Ready with Spring Boot - 2 - ConfigurationProperties
+- Step 11 - Get Production Ready with Spring Boot - 3 - Embedded Servers
+- Step 12 - Get Production Ready with Spring Boot - 4 - Actuator
+- Step 13 - Understanding Spring Boot vs Spring vs Spring MVC
+- Step 14 - Getting Started with Spring Boot - Review
+
+<!---
+Current Directory : /Users/ranga/Ranga/git/00.courses/getting-started-for-beginners-v2/spring-boot-in-10-steps
+-->
 
 ## Complete Code Example
+
 
 ### /notes.txt
 
 ```
-Goals
-Enable building production ready applications quickly
-Provide common non-functional features 
-- embedded servers
-- metrics
-- health checks
-- externalized configuration
 
-What Spring Boot is NOT!
-ZERO code generation
-Neither an application server nor a web server
+dev
+~~~~
+logging.level.org.springframework=trace
 
-Features
-Quick Starter Projects with Auto Configuration
- - Web
- - JPA
-Embedded Servers - Tomcat, Jetty or Undertow
-Production-ready features
- - metrics and health checks 
- - externalized configuration
- 
- 
-http://localhost:8080/books => Few hardcoded books
- 
+prod
+~~~~
+logging.level.org.springframework=info
+
+
+trace
+debug
+info
+warning
+error
+
+off
 ```
 ---
 
@@ -49,31 +50,24 @@ http://localhost:8080/books => Few hardcoded books
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.in28minutes.springboot.basics</groupId>
-	<artifactId>springboot-in-10-steps</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>springboot-in-10-steps</name>
-	<description>Demo project for Spring Boot</description>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
+		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
+	<groupId>com.in28minutes.springboot</groupId>
+	<artifactId>learn-spring-boot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>learn-spring-boot</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>21</java.version>
 	</properties>
-
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -84,27 +78,17 @@ http://localhost:8080/books => Few hardcoded books
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-rest-hal-browser</artifactId>
-		</dependency>
-
-<!-- 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		 -->
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -117,16 +101,7 @@ http://localhost:8080/books => Few hardcoded books
 			</plugin>
 		</plugins>
 	</build>
-
 	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -136,16 +111,7 @@ http://localhost:8080/books => Few hardcoded books
 			</snapshots>
 		</repository>
 	</repositories>
-
 	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
 		<pluginRepository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -156,22 +122,21 @@ http://localhost:8080/books => Few hardcoded books
 		</pluginRepository>
 	</pluginRepositories>
 
-
 </project>
 ```
 ---
 
-### /src/main/java/com/in28minutes/springboot/basics/springbootin10steps/Book.java
+### /src/main/java/com/in28minutes/springboot/learnspringboot/Course.java
 
 ```java
-package com.in28minutes.springboot.basics.springbootin10steps;
+package com.in28minutes.springboot.learnspringboot;
 
-public class Book {
-	long id;
-	String name;
-	String author;
+public class Course {
+	private long id;
+	private String name;
+	private String author;
 
-	public Book(long id, String name, String author) {
+	public Course(long id, String name, String author) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -192,84 +157,179 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return String.format("Book [id=%s, name=%s, author=%s]", id, name, author);
+		return "Course [id=" + id + ", name=" + name + ", author=" + author + "]";
 	}
 
 }
 ```
 ---
 
-### /src/main/java/com/in28minutes/springboot/basics/springbootin10steps/BooksController.java
+### /src/main/java/com/in28minutes/springboot/learnspringboot/CourseController.java
 
 ```java
-package com.in28minutes.springboot.basics.springbootin10steps;
+package com.in28minutes.springboot.learnspringboot;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BooksController {
-	@GetMapping("/books")
-	public List<Book> getAllBooks() {
+public class CourseController {
+	
+	@RequestMapping("/courses")
+	public List<Course> retrieveAllCourses() {
 		return Arrays.asList(
-				new Book(1l, "Mastering Spring 5.2", "Ranga Karanam"));
+				new Course(1, "Learn AWS", "in28minutes"),
+				new Course(2, "Learn DevOps", "in28minutes"),
+				new Course(3, "Learn Azure", "in28minutes"),
+				new Course(4, "Learn GCP", "in28minutes")
+				
+				);
 	}
+
 }
 ```
 ---
 
-### /src/main/java/com/in28minutes/springboot/basics/springbootin10steps/SpringbootIn10StepsApplication.java
+### /src/main/java/com/in28minutes/springboot/learnspringboot/CurrencyConfigurationController.java
 
 ```java
-package com.in28minutes.springboot.basics.springbootin10steps;
+package com.in28minutes.springboot.learnspringboot;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CurrencyConfigurationController {
+	
+	@Autowired
+	private CurrencyServiceConfiguration configuration;
+	
+	@RequestMapping("/currency-configuration")
+	public CurrencyServiceConfiguration retrieveAllCourses() {
+		return configuration;
+	}
+
+}
+```
+---
+
+### /src/main/java/com/in28minutes/springboot/learnspringboot/CurrencyServiceConfiguration.java
+
+```java
+package com.in28minutes.springboot.learnspringboot;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+//currency-service.url=
+//currency-service.username=
+//currency-service.key=
+
+@ConfigurationProperties(prefix = "currency-service")
+@Component
+public class CurrencyServiceConfiguration {
+
+	private String url;
+	private String username;
+	private String key;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+}
+```
+---
+
+### /src/main/java/com/in28minutes/springboot/learnspringboot/LearnSpringBootApplication.java
+
+```java
+package com.in28minutes.springboot.learnspringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class SpringbootIn10StepsApplication {
+public class LearnSpringBootApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = 
-				SpringApplication.run(SpringbootIn10StepsApplication.class, args);
-		
-		for (String name : applicationContext.getBeanDefinitionNames()) {
-			System.out.println(name);
-		}
+		SpringApplication.run(LearnSpringBootApplication.class, args);
 	}
+
 }
+```
+---
+
+### /src/main/resources/application-dev.properties
+
+```properties
+logging.level.org.springframework=trace
+
+currency-service.url=http://dev.in28minutes.com
+currency-service.username=devusername
+currency-service.key=devkey
+```
+---
+
+### /src/main/resources/application-prod.properties
+
+```properties
+logging.level.org.springframework=info
 ```
 ---
 
 ### /src/main/resources/application.properties
 
 ```properties
-#logging.level.org.springframework = DEBUG
-management.endpoints.web.exposure.include=*
+logging.level.org.springframework=debug
+spring.profiles.active=dev
+
+
+currency-service.url=http://default1.in28minutes.com
+currency-service.username=defaultusername
+currency-service.key=defaultkey
+
+management.endpoints.web.exposure.include=health,metrics
 ```
 ---
 
-### /src/test/java/com/in28minutes/springboot/basics/springbootin10steps/SpringbootIn10StepsApplicationTests.java
+### /src/test/java/com/in28minutes/springboot/learnspringboot/LearnSpringBootApplicationTests.java
 
 ```java
-package com.in28minutes.springboot.basics.springbootin10steps;
+package com.in28minutes.springboot.learnspringboot;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringbootIn10StepsApplicationTests {
+class LearnSpringBootApplicationTests {
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 	}
 
 }
