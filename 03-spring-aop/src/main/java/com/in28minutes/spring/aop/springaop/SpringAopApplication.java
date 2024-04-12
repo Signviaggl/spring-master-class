@@ -32,4 +32,3 @@ public class SpringAopApplication implements CommandLineRunner{
 		logger.info(business2.calculateSomething());
 	}
 }
-git st
