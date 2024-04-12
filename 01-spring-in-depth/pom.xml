@@ -14,16 +14,17 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0-M2</version>
+		<version>3.2.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-		<jakarta.annotation.api.version>2.1.0</jakarta.annotation.api.version>
+		<jakarta.annotation.api.version>2.1.1</jakarta.annotation.api.version>
+		<junit-jupiter.version>5.9.2</junit-jupiter.version>
 	</properties>
 
 	<dependencies>
@@ -66,15 +67,23 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- JUnit 5 -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -85,7 +94,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.in28minutes.spring.basics.SpringIn5StepsBasicApplication</mainClass>
+				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

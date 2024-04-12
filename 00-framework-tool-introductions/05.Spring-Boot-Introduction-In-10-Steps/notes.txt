@@ -1,23 +1,17 @@
-## Spring Boot
 
-### Goals
-- Enable building production ready applications quickly
-- Provide common non-functional features 
-  - embedded servers
-  - metrics
-  - health checks
-  - externalized configuration
+dev
+~~~~
+logging.level.org.springframework=trace
 
-### What Spring Boot is NOT!
-- ZERO code generation
-- Neither an application server nor a web server
+prod
+~~~~
+logging.level.org.springframework=info
 
-### Features
-- Quick Starter Projects with Auto Configuration
-   - Web
-   - JPA
-- Embedded Servers - Tomcat, Jetty or Undertow
-- Production-ready features
-   - metrics and health checks 
-   - externalized configuration
- 
+
+trace
+debug
+info
+warning
+error
+
+off
